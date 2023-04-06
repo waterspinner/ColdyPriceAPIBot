@@ -1,5 +1,7 @@
+require('dotenv').config();
+const apiKey = process.env.API_KEY;
 const TelegramBot = require('node-telegram-bot-api');
-const bot = new TelegramBot('5706559664:AAF6nPLa6o0zuV05WL4bICHR8SQNulOinpc', {polling: true});
+const bot = new TelegramBot(`${apiKey}`, {polling: true});
 
 bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, "Hi! I can fetch Osmosis token prices for you with token symbols. Just send the symbol, e.g. OSMO, and I will fetch the real time price for you.");
