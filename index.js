@@ -3,12 +3,25 @@ const apiKey = process.env.API_KEY;
 const TelegramBot = require('node-telegram-bot-api');
 const bot = new TelegramBot(`${apiKey}`, {polling: true});
 
+function formatTokenName(token) {
+  const lowerCaseSuffix = ".axl";
+  const lowerCaseIndex = token.toLowerCase().indexOf(lowerCaseSuffix);
+  if (lowerCaseIndex !== -1) {
+    const upperCasePrefix = token.substring(0, lowerCaseIndex);
+    const lowerCaseSuffix = token.substring(lowerCaseIndex);
+    return upperCasePrefix.toUpperCase() + lowerCaseSuffix;
+  } else {
+    return token.toUpperCase();
+  }
+}
+
+
 bot.onText(/\/start/, (msg) => {
     bot.sendMessage(msg.chat.id, "Hi! I can fetch Osmosis token prices for you with token symbols. Just send the symbol, e.g. OSMO, and I will fetch the real time price for you.");
 }) 
 
 bot.on('message', async (msg) => {
-    const token = msg.text;
+    const token = formatTokenName(msg.text);
     const url = `https://price.coldyvalidator.net/price?token=${token}`;
     console.log(url)
 
