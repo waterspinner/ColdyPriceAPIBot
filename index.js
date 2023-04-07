@@ -10,7 +10,11 @@ function formatTokenName(token) {
     const upperCasePrefix = token.substring(0, lowerCaseIndex);
     const lowerCaseSuffix = token.substring(lowerCaseIndex);
     return upperCasePrefix.toUpperCase() + lowerCaseSuffix;
-  } else {
+  } 
+  else if (token.toLowerCase().startsWith("ibc")) {
+    return "ibc" + token.substring(3);
+  }
+  else {
     return token.toUpperCase();
   }
 }
@@ -34,7 +38,8 @@ bot.on('message', async (msg) => {
         const price = Number(data.prices[token].price.osmodollar).toFixed(2);
         if (price) {
             bot.sendMessage(msg.chat.id, `The price of ${token} is $${price}`);
-          } else {
+          } 
+          else {
             bot.sendMessage(msg.chat.id, "Sorry, I couldn't find the price for that token.");
           }
         } catch (error) {
