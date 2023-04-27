@@ -9,7 +9,7 @@ function formatTokenName(token) {
   if (lowerCaseIndex !== -1) {
     const upperCasePrefix = token.substring(0, lowerCaseIndex);
     const lowerCaseSuffix = token.substring(lowerCaseIndex);
-    return upperCasePrefix.toUpperCase() + lowerCaseSuffix;
+    return upperCasePrefix.toUpperCase() + lowerCaseSuffix.toLowerCase();
   } 
   else if (token.toLowerCase().startsWith("ibc")) {
     return "ibc" + token.substring(3);
